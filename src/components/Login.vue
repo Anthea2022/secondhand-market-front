@@ -31,7 +31,7 @@
     import {login} from '@/api/index'
     import Vue from 'vue'
     export default {
-        name: "Login",
+        name:  "Login",
         data: function () {
             return {
                 ruleForm: {
@@ -82,6 +82,7 @@
         top: 50%;
         width: 100%;
         margin-top: -230px;
+        margin-right: -200px;
         text-align: center;
         font-size: 30px;
         font-weight: 600;

@@ -1,24 +1,28 @@
 <template>
     <div>
         <div>
-            <el-button @click="listMyGoods" style="margin-left: 700px; margin-top: 25px">我的购物</el-button>
+          <div style="margin-top: 50px; margin-left: 900px; font-size: 50px">
+            我的购物记录
+          </div>
         </div>
-        <div style="margin-left: 490px; margin-right: 490px">
+        <div style="margin-left: 690px; margin-right: 590px">
             <el-table :data="goodsList" border stripe>
                 <el-table-column type="index"></el-table-column>
                 <el-table-column label="商品名称" prop="name" width="150px"></el-table-column>
-                <el-table-column label="商品描述" prop="refer" width="200px"></el-table-column>
+                <el-table-column label="商品描述" prop="refer" width="400px"></el-table-column>
                 <el-table-column label="商品价格（元）" prop="price" width="150px"></el-table-column>
             </el-table>
         </div>
         <div>
-            <el-button @click="listMySell" style="margin-left: 700px; margin-top: 25px">我的出售</el-button>
+          <div style="margin-top: 50px; margin-left: 900px; font-size: 50px">
+            我的出售记录
+          </div>
         </div>
-        <div style="margin-left: 490px; margin-right: 490px">
+        <div style="margin-left: 690px; margin-right: 590px">
             <el-table :data="sellList" border stripe>
                 <el-table-column type="index"></el-table-column>
                 <el-table-column label="商品名称" prop="name" width="150px"></el-table-column>
-                <el-table-column label="商品描述" prop="refer" width="200px"></el-table-column>
+                <el-table-column label="商品描述" prop="refer" width="400px"></el-table-column>
                 <el-table-column label="商品价格（元）" prop="price" width="150px"></el-table-column>
             </el-table>
         </div>
@@ -69,20 +73,39 @@
                     message: '获取失败'
                 })
             })
+          getMyGoods(userId)
+              .then(response =>{
+                this.goodsList = response.data.data
+              }).catch(error =>{
+            this.$message({
+              type: 'error',
+              message: '获取失败'
+            })
+          })
+          getSell(userId)
+              .then(res => {
+                this.sellList = res.data.data
+              })
+              .catch(err => {
+                this.$message({
+                  type: 'error',
+                  message: '获取失败'
+                })
+              })
         },
         methods:{
-            listMyGoods() {
-                var userId = parseInt(this.$userId)
-                getMyGoods(userId)
-                .then(response =>{
-                    this.goodsList = response.data.data
-                }).catch(error =>{
-                    this.$message({
-                        type: 'error',
-                        message: '获取失败'
-                    })
-                })
-            },
+            // listMyGoods() {
+            //     var userId = parseInt(this.$userId)
+            //     getMyGoods(userId)
+            //     .then(response =>{
+            //         this.goodsList = response.data.data
+            //     }).catch(error =>{
+            //         this.$message({
+            //             type: 'error',
+            //             message: '获取失败'
+            //         })
+            //     })
+            // },
             save() {
                 var userId = this.$userId
                 recharge(userId, this.money)
@@ -99,19 +122,19 @@
                     })
                 })
             },
-            listMySell() {
-                var userId = this.$userId
-                getSell(userId)
-                .then(res => {
-                    this.sellList = res.data.data
-                })
-                .catch(err => {
-                    this.$message({
-                        type: 'error',
-                        message: '获取失败'
-                    })
-                })
-            },
+            // listMySell() {
+            //     var userId = this.$userId
+            //     getSell(userId)
+            //     .then(res => {
+            //         this.sellList = res.data.data
+            //     })
+            //     .catch(err => {
+            //         this.$message({
+            //             type: 'error',
+            //             message: '获取失败'
+            //         })
+            //     })
+            // },
             changePassword() {
                 var userId = this.$userId
                 setPassword(userId, this.password)

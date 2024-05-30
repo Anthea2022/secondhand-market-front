@@ -1,12 +1,11 @@
 <template>
   <div class="app">
-    <router-view />
+    <router-view/>
   </div>
 </template>
 
 <script>
-import Login from './components/Login.vue'
-import Register from "./components/Register";
+// eslint-disable-next-line no-unused-vars
 export default {
   name: 'App',
   components: {
