@@ -1,55 +1,43 @@
 <template>
-    <div>
-        <div>
-          <div style="margin-top: 50px; margin-left: 900px; font-size: 50px">
-            我的购物记录
-          </div>
-        </div>
-        <div style="margin-left: 690px; margin-right: 590px">
-            <el-table :data="goodsList" border stripe>
-                <el-table-column type="index"></el-table-column>
-                <el-table-column label="商品名称" prop="name" width="150px"></el-table-column>
-                <el-table-column label="商品描述" prop="refer" width="400px"></el-table-column>
-                <el-table-column label="商品价格（元）" prop="price" width="150px"></el-table-column>
-            </el-table>
-        </div>
-        <div>
-          <div style="margin-top: 50px; margin-left: 900px; font-size: 50px">
-            我的出售记录
-          </div>
-        </div>
-        <div style="margin-left: 690px; margin-right: 590px">
-            <el-table :data="sellList" border stripe>
-                <el-table-column type="index"></el-table-column>
-                <el-table-column label="商品名称" prop="name" width="150px"></el-table-column>
-                <el-table-column label="商品描述" prop="refer" width="400px"></el-table-column>
-                <el-table-column label="商品价格（元）" prop="price" width="150px"></el-table-column>
-            </el-table>
-        </div>
-        <div style="margin-top: 50px; margin-left: 700px">
-            我的余额： {{balance}}
-        </div>
-        <div style="margin-top: 50px">
-            <div align="left" style="float:left">
-                <el-input v-model="money" clearable style="margin-left: 630px;width: 150px"></el-input>
-            </div>
-            <div align="right">
-                <el-button @click="save" type="primary" style="margin-right: 630px;width: 100px">充值</el-button>
-            </div>
-        </div>
-        <div style="margin-top: 50px">
-            <div align="left" style="float:left">
-                <el-input v-model="password" clearable style="margin-left: 630px;width: 150px"></el-input>
-            </div>
-            <div align="right">
-                <el-button @click="changePassword" type="primary" style="margin-right: 630px;width: 100px">修改密码</el-button>
-            </div>
-        </div>
-    </div>
+  <div style="margin-top: -20px">
+    <el-container style="height: 100vh;
+      border: 1px solid #eee;
+      margin: 0;
+      border: 0;
+      padding: 0;">
+      <el-aside width="200px">
+          <el-menu
+              background-color="#2F4F4F" text-color="#ffffff" style="height: 100%"
+              default-active="1"
+              class="el-menu-vertical-demo"
+              unique-opened
+              router>
+            <el-submenu index="1">
+              <template slot="title">
+                <i class="el-icon-message"></i>
+                <span>首页</span>
+              </template>
+              <el-menu-item-group>
+                <template slot="title"></template>
+                <el-menu-item index="/Info">商城</el-menu-item>
+                <el-menu-item index="/BuyRecord">购买记录</el-menu-item>
+                <el-menu-item index="/SellRecord">售卖记录</el-menu-item>
+                <el-menu-item index="/Mine">个人中心</el-menu-item>
+              </el-menu-item-group>
+            </el-submenu>
+          </el-menu>
+      </el-aside>
+      <el-col>
+        <transition name="fade" mode="out-in">
+          <router-view></router-view>
+        </transition>
+      </el-col>
+    </el-container>
+  </div>
 </template>
 
 <script>
-    import {getMyGoods, recharge, getBalance, setPassword, getSell} from "@/api/index";
+    import {getGoods, recharge, setPassword, } from "@/api/index";
 
     export default {
         name: "Home",
@@ -63,17 +51,7 @@
             }
         },
         created() {
-            var userId = this.$userId
-            getBalance(userId)
-            .then(request => {
-                this.balance = request.data.data.balance
-            }).catch(error => {
-                this.$message({
-                    type: 'error',
-                    message: '获取失败'
-                })
-            })
-          getMyGoods(userId)
+          getGoods()
               .then(response =>{
                 this.goodsList = response.data.data
               }).catch(error =>{
@@ -82,30 +60,8 @@
               message: '获取失败'
             })
           })
-          getSell(userId)
-              .then(res => {
-                this.sellList = res.data.data
-              })
-              .catch(err => {
-                this.$message({
-                  type: 'error',
-                  message: '获取失败'
-                })
-              })
         },
         methods:{
-            // listMyGoods() {
-            //     var userId = parseInt(this.$userId)
-            //     getMyGoods(userId)
-            //     .then(response =>{
-            //         this.goodsList = response.data.data
-            //     }).catch(error =>{
-            //         this.$message({
-            //             type: 'error',
-            //             message: '获取失败'
-            //         })
-            //     })
-            // },
             save() {
                 var userId = this.$userId
                 recharge(userId, this.money)
@@ -122,19 +78,6 @@
                     })
                 })
             },
-            // listMySell() {
-            //     var userId = this.$userId
-            //     getSell(userId)
-            //     .then(res => {
-            //         this.sellList = res.data.data
-            //     })
-            //     .catch(err => {
-            //         this.$message({
-            //             type: 'error',
-            //             message: '获取失败'
-            //         })
-            //     })
-            // },
             changePassword() {
                 var userId = this.$userId
                 setPassword(userId, this.password)
@@ -155,5 +98,12 @@
 </script>
 
 <style scoped>
-
+.el-container {
+  height: 100%
+}
+.el-aside {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
 </style>

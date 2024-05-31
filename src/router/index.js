@@ -8,6 +8,9 @@ import Register from '../components/Register';
 import Info from "../components/Info";
 import Home from '../components/Home'
 import Sell from  '../components/Sell'
+import Mine from '../components/Mine.vue'
+import sellRecord from "@/components/SellRecord.vue";
+import buyRecord from "@/components/BuyRecord.vue";
 
 export default new Router({
     routes: [
@@ -22,19 +25,35 @@ export default new Router({
             component: Register,
         },
         {
-            path: '/Info',
-            name: 'Info',
-            component: Info
-        },
-        {
             path: '/Home',
-            name: 'Home',
-            component: Home
+            name: '首页',
+            component: Home,
+            children: [{
+                path: '/Info',
+                name: '商城',
+                component: Info
+            },
+            {
+                path: '/Sell',
+                name: '售卖记录',
+                component: Sell
+            },
+                {
+                    path: '/Mine',
+                    name: '个人中心',
+                    component: Mine
+                },
+                {
+                    path: "/SellRecord",
+                    name: '售卖记录',
+                    component: sellRecord
+                },
+                {
+                    path: "/BuyRecord",
+                    name: '购买记录',
+                    component: buyRecord
+                }
+            ]
         },
-        {
-            path: '/Sell',
-            name: 'Sell',
-            component: Sell
-        }
     ]
 })

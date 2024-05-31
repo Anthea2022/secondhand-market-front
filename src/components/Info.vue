@@ -1,32 +1,27 @@
 <template>
     <div>
-        <div style="margin-left: 750px; margin-right: 700px;margin-top: 50px">
-            <el-row :gutter="20" >
-                <el-col :span="7">
-                    <el-input placeholder="请输入内容" clearable style="width: 600px" v-model="goodsName">
-                        <el-button slot="append" icon="el-icon-search" @click="selection(goodsName)"></el-button>
-                    </el-input>
-                </el-col>
-            </el-row>
-            <el-table :data="goodsList" border stripe>
+      <div style="margin-left: 600px; margin-right: 500px;margin-top: 100px">
+        <el-row :gutter="20" >
+          <el-col :span="7">
+            <el-input placeholder="请输入查询内容" clearable style="width: 800px" v-model="goodsName">
+              <el-button slot="append" icon="el-icon-search" @click="selection(goodsName)"></el-button>
+            </el-input>
+          </el-col>
+        </el-row>
+      </div>
+        <div style="margin-left: 400px; margin-right: 400px;margin-top: 50px">
+            <el-table :data="goodsList" border stripe style="font-size: 20px">
 <!--                <el-table-column type="index"></el-table-column>-->
-                <el-table-column label="商品名称" prop="name" width="150px"></el-table-column>
-                <el-table-column label="商品描述" prop="refer" width="200px"></el-table-column>
-                <el-table-column label="商品价格（元）" prop="price" width="150px"></el-table-column>
+                <el-table-column label="商品名称" prop="name" width="250px"></el-table-column>
+                <el-table-column label="商品描述" prop="refer" width="600px"></el-table-column>
+                <el-table-column label="商品数量" prop="num" width="150px"></el-table-column>
+                <el-table-column label="商品价格（元）" prop="price" width="250px"></el-table-column>
                 <el-table-column label="操作" width="100px">
                     <template slot-scope="scope">
                         <el-button size= "mini" type="primary" icon="el-icon-edit" @click="buy(scope.row.id)">购买</el-button>
                     </template>
                 </el-table-column>
             </el-table>
-        </div>
-        <div style="margin-top: 50px">
-            <div align="left" style="float:left">
-                <el-button @click="goToMine" style="margin-left: 550px;width: 100px">我的</el-button>
-            </div>
-            <div align="right">
-                <el-button @click="goToSell" style="margin-right: 550px;width: 100px">出售</el-button>
-            </div>
         </div>
     </div>
 </template>
@@ -84,12 +79,6 @@
                     })
                 })
             },
-            goToMine() {
-                this.$router.push('/Home', ()=>{}, ()=>{})
-            },
-            goToSell() {
-                this.$router.push('/Sell', ()=>{}, ()=>{})
-            }
         }
     }
 </script>

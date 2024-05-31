@@ -35,7 +35,7 @@ export function buyGoods(userId, goodsId) {
 
 export function getMyGoods(userId) {
     return request({
-        url: `/secondhand_market/goods/getUserGoods?userId=${userId}`,
+        url: `/secondhand_market/goods/getUserBuy?userId=${userId}`,
         method: 'get',
     })
 }
@@ -78,6 +78,13 @@ export function setPassword(userId, password) {
 export function getSell(userId) {
     return request({
         url: `/secondhand_market/goods/getUserSell?userId=${userId}`,
+        method: 'get'
+    })
+}
+
+export function getMyInfo(userId) {
+    return request({
+        url : `/secondhand_market/user/getUserData?userId=${userId}`,
         method: 'get'
     })
 }

@@ -53,7 +53,7 @@
                         message: '登录成功'
                     })
                     Vue.prototype.$userId = response.data.data.id
-                    this.$router.push('/Info', ()=>{}, ()=>{})
+                    this.$router.push('/Home', ()=>{}, ()=>{})
                 }).catch(err => {
                     this.$message({
                         type: 'error',
